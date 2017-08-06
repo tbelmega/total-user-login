@@ -8,6 +8,7 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 
@@ -55,6 +56,12 @@ public class AuthServiceImpl implements AuthService {
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public byte[] generateSalt() {
+        byte[] salt = new byte[64];
+        new SecureRandom().nextBytes(salt);
+        return salt;
     }
 
 }

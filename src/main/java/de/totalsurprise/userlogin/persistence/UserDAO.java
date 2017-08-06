@@ -44,4 +44,18 @@ public class UserDAO {
         if (resultList.isEmpty()) return null;
         else return resultList.get(0);
     }
+
+    public List<UserEntity> findAll() {
+        CriteriaBuilder criteria = em.getCriteriaBuilder();
+        CriteriaQuery<UserEntity> query = criteria.createQuery(UserEntity.class);
+
+        Root<UserEntity> fromTableUser = query.from(UserEntity.class);
+
+        query.select(fromTableUser);
+
+        TypedQuery<UserEntity> typedQuery = em.createQuery(query);
+
+        // Execute query
+        return typedQuery.getResultList();
+    }
 }

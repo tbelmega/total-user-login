@@ -27,7 +27,7 @@ public class TestDataGenerator {
     public void setupTestData() {
         UserEntity user1 = new UserEntity();
         user1.setMailAdress("c.norris@foo.bar");
-        byte[] salt1 = generateSalt();
+        byte[] salt1 = authService.generateSalt();
         user1.setSalt(salt1);
         user1.setEncryptedPassword(authService.encrypt("1234".toCharArray(), salt1));
         userDAO.persist(user1);
@@ -35,17 +35,13 @@ public class TestDataGenerator {
 
         UserEntity user2 = new UserEntity();
         user2.setMailAdress("s.stallone@foo.bar");
-        byte[] salt2 = generateSalt();
+        byte[] salt2 = authService.generateSalt();
         user2.setSalt(salt2);
         user2.setEncryptedPassword(authService.encrypt("1234".toCharArray(), salt2));
         userDAO.persist(user2);
 
     }
 
-    private byte[] generateSalt() {
-        byte[] salt = new byte[64];
-        new SecureRandom().nextBytes(salt);
-        return salt;
-    }
+
 
 }
